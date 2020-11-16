@@ -1,25 +1,41 @@
 {
-  "name": "dead-letter-queue",
+  "name": "@ssun3/dead-letter-queue",
   "version": "0.1.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "jsii",
+    "watch": "jsii -w",
     "test": "jest"
   },
+  "author": {
+    "name": "Susan Sun"
+  },
+  "repository": {
+    "url": "https://github.com/ssun3/dead-letter-queue"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@aws-cdk/assert": "1.73.0",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "jest": "^26.4.2",
+    "jsii": "^1.14.1",
+    "jsii-pacmak": "^1.14.1",
     "ts-jest": "^26.2.0",
     "typescript": "~3.9.7"
   },
   "peerDependencies": {
-    "@aws-cdk/core": "1.73.0"
+    "@aws-cdk/core": "1.73.0",
+    "constructs": "3.2.30",
+    "@aws-cdk/aws-sns": "^1.73.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.73.0",
+    "@aws-cdk/aws-sqs": "^1.73.0"
   },
   "dependencies": {
+    "@aws-cdk/aws-sns": "^1.73.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.73.0",
+    "@aws-cdk/aws-sqs": "^1.73.0",
     "@aws-cdk/core": "1.73.0"
   }
 }
