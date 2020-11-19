@@ -1,24 +1,33 @@
-import * as cdk from '@aws-cdk/core';
-import * as sns from '@aws-cdk/aws-sns';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
+import * as cdk from "@aws-cdk/core";
+import * as subs from "@aws-cdk/aws-sns-subscriptions";
+import * as sqs from "@aws-cdk/aws-sqs";
+import * as sns from "@aws-cdk/aws-sns";
 export interface DeadLetterQueueProps {
+  // Define construct properties here
   visibilityTimeout?: cdk.Duration;
 }
 
 export class DeadLetterQueue extends cdk.Construct {
-  public readonly queueArn:  string;
-  constructor(scope: cdk.Construct, id: string, props: DeadLetterQueueProps = {}) {
+  public readonly queue: sqs.Queue;
+  public readonly topic: sns.Topic;
+
+  constructor(
+    scope: cdk.Construct,
+    id: string,
+    props: DeadLetterQueueProps = {}
+  ) {
     super(scope, id);
 
-    const queue = new sqs.Queue(this, 'DeadLetterQueueQueue', {
-      visibilityTimeout: props.visibilityTimeout || cdk.Duration.seconds(300)
-    })
-    
-    const topic = new sns.Topic(this, 'DeadLetterQueueTopic'); 
+    // Define construct contents here
+    const queue = new sqs.Queue(this, "DeadLetterQueueQueue", {
+      visibilityTimeout: props.visibilityTimeout || cdk.Duration.seconds(300),
+    });
 
-    topic.addSubscription(new subs.SqsSubscription(queue))
+    const topic = new sns.Topic(this, "DeadLetterQueueTopic");
 
-    this.queueArn = queue.queueArn;
+    topic.addSubscription(new subs.SqsSubscription(queue));
+
+    this.queue = queue;
+    this.topic = topic;
   }
 }
